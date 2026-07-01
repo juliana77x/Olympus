@@ -38,29 +38,11 @@ body{font-family:'Inter',system-ui,sans-serif;}
 #hero-img{transform:none;transition:none;}
 #hero-img.loaded{transform:none;}
 
-/* ── Hero mobile fix: foto como card responsiva ── */
+/* ── Hero mobile fix ── */
 @media(max-width:639px){
-  #hero{
-    min-height:auto;
-    display:block;
-    padding-top:16px;
-  }
-  #hero .hero-photo-wrap{
-    position:relative;
-    inset:auto;
-    width:calc(100% - 32px);
-    height:48vh;
-    margin:0 16px;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 16px 40px rgba(0,0,0,0.45);
-  }
   #hero-img{object-position:center 20% !important;}
-  #hero .hero-gradient{display:none !important;}
-  #hero .relative.z-10{
-    min-height:auto;
-    padding-top:32px !important;
-  }
+  .hero-gradient-side{display:none;}
+  .hero-gradient-mobile-bottom{display:block !important;}
 }
 
 /* ── LIQUID GLASS NAVBAR ─────────────────────────────────────
@@ -560,11 +542,10 @@ body{font-family:'Inter',system-ui,sans-serif;}
     <style>
     @media(max-width:639px){
       #hero .relative.z-10{
-        padding-top: 32px;
+        padding-top: 120px;
         padding-bottom: 80px;
         padding-left: 24px;
         padding-right: 24px;
-        min-height: auto;
       }
       #hero h1{
         font-size: 2.5rem !important;
@@ -1384,4 +1365,4 @@ body{font-family:'Inter',system-ui,sans-serif;}
 </div>
 
 </body>
-</html> 
+</html>
