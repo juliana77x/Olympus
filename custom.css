@@ -1,0 +1,672 @@
+/* ============================================================
+   OLYMPUS — custom.css  (v2)
+   Cambios respecto a v1:
+   - Añadida animación bounce para scroll-hint-line
+   - Añadida clase reveal.d-6 → .d-4 ya existía, añadimos d-5 y d-6 correctamente
+   - Estilos para sección de ciclo menstrual
+   - active: states para feature cards (mobile)
+   ============================================================ */
+
+/* ── Variables ─────────────────────────────────────────── */
+:root {
+  --cyan:      #40FFF9;
+  --cyan-glow: rgba(64, 255, 249, 0.15);
+  --dark-1:    #0A0A0A;
+  --dark-2:    #0D0D0D;
+  --dark-3:    #1A1A1A;
+  --line:      rgba(255, 255, 255, 0.1);
+  --text-dim:  rgba(255, 255, 255, 0.45);
+  --ease-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spr:  cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Fuentes ────────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.display-heading {
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+}
+
+/* ── Reset selectivo ────────────────────────────────────── */
+::selection {
+  background: var(--cyan);
+  color: #000000;
+}
+
+::-webkit-scrollbar        { width: 3px; }
+::-webkit-scrollbar-track  { background: var(--dark-1); }
+::-webkit-scrollbar-thumb  { background: #374151; }
+
+/* ── NAV ────────────────────────────────────────────────── */
+#main-nav {
+  transition: background 0.4s ease, border-bottom 0.4s ease, transform 0.4s var(--ease-expo);
+  animation: navDrop 0.9s var(--ease-expo) 3.1s both;
+}
+
+@keyframes navDrop {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+#main-nav.nav-scrolled {
+  background: rgba(13, 13, 13, 0.95) !important;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-bottom: 1px solid rgba(64, 255, 249, 0.3) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(64, 255, 249, 0.1);
+}
+
+#main-nav.nav-hidden {
+  transform: translateY(-100%);
+}
+
+/* Mobile menu */
+#mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 64px;
+  background: var(--dark-2);
+  z-index: 40;
+  padding: 40px 32px;
+  flex-direction: column;
+  gap: 32px;
+  border-top: 1px solid var(--line);
+  animation: menuSlide 0.3s var(--ease-expo);
+  overflow-y: auto;
+}
+
+#mobile-menu.open {
+  display: flex;
+}
+
+@keyframes menuSlide {
+  from { transform: translateY(-20px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+#mobile-menu a {
+  font-size: 28px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  transition: color 0.2s;
+}
+
+#mobile-menu a:hover { color: var(--cyan); }
+
+/* ── HERO parallax wrapper ──────────────────────────────── */
+.hero-parallax {
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+/* ── SCROLL REVEALS ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.85s var(--ease-expo),
+    transform 0.85s var(--ease-expo);
+}
+
+.reveal.reveal-left  { transform: translateX(-40px); }
+.reveal.reveal-right { transform: translateX(40px); }
+.reveal.reveal-scale { transform: scale(0.94); }
+
+.reveal.d-1 { transition-delay: 0.0s; }
+.reveal.d-2 { transition-delay: 0.08s; }
+.reveal.d-3 { transition-delay: 0.16s; }
+.reveal.d-4 { transition-delay: 0.24s; }
+.reveal.d-5 { transition-delay: 0.32s; }
+.reveal.d-6 { transition-delay: 0.40s; }
+
+.reveal.visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* ── HERO text entrance ─────────────────────────────────── */
+.hero-line {
+  overflow: hidden;
+}
+
+.hero-line-inner {
+  display: block;
+  opacity: 0;
+}
+
+.hero-line-inner.animate {
+  animation: heroUp 0.85s var(--ease-expo) forwards;
+}
+
+@keyframes heroUp {
+  from { transform: translateY(105%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.hero-eyebrow {
+  overflow: hidden;
+}
+
+.hero-eyebrow span {
+  display: inline-block;
+  opacity: 0;
+}
+
+/* ── SCROLL HINT — FIX: animación bounce en la línea ─────── */
+.scroll-hint-line {
+  animation: scrollBounce 2s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: scaleY(1);    opacity: 0.2; }
+  50%       { transform: scaleY(1.35); opacity: 0.5; }
+}
+
+/* ── FEATURE CARDS ──────────────────────────────────────── */
+.feature-card-underline {
+  width: 0;
+  height: 1px;
+  background: var(--cyan);
+  transition: width 0.3s ease;
+  margin-top: 24px;
+}
+
+.feature-card:hover .feature-card-underline,
+.feature-card:focus-within .feature-card-underline {
+  width: 48px;
+}
+
+.feature-card-icon {
+  color: rgba(255,255,255,0.3);
+  transition: color 0.3s ease;
+}
+
+.feature-card:hover .feature-card-icon,
+.feature-card:active .feature-card-icon {
+  color: rgba(255,255,255,1);
+}
+
+/* ── SCREENSHOTS SECTION ────────────────────────────────── */
+.screen-tab {
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.screen-tab.active {
+  color: #ffffff;
+  opacity: 1 !important;
+}
+
+.screen-tab.active .tab-arrow {
+  background: linear-gradient(90deg, #FFD700, #FF4500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(4px);
+}
+
+.screen-tab.active .tab-num {
+  color: rgba(255,255,255,0.4);
+}
+
+.phone-screen-img {
+  transition: opacity 0.4s ease;
+}
+
+.phone-screen-img.fade {
+  opacity: 0;
+}
+
+/* ── TESTIMONIALS ───────────────────────────────────────── */
+.testimonial-tab {
+  transition: opacity 0.2s ease;
+}
+
+.testimonial-tab.active {
+  opacity: 1 !important;
+}
+
+.testimonial-content {
+  transition: opacity 0.35s ease;
+}
+
+.testimonial-content.fade {
+  opacity: 0;
+}
+
+.testimonial-badge {
+  background: linear-gradient(90deg, #FFD700, #FF4500);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #000;
+  padding: 8px 16px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* ── GRADIENT TEXT (arrows active state) ────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, #FFD700, #FF4500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── DOWNLOAD left accent ───────────────────────────────── */
+.download-left-line {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(64, 255, 249, 0.6);
+}
+
+/* ── FOOTER social icons ────────────────────────────────── */
+.social-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.4);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.social-icon:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: #ffffff;
+}
+
+/* ── BUTTON hover effects ───────────────────────────────── */
+.btn-cyan {
+  border: 2px solid var(--cyan);
+  color: var(--cyan);
+  transition: background 0.2s, color 0.2s, transform 0.15s var(--ease-spr);
+}
+
+.btn-cyan:hover {
+  background: var(--cyan);
+  color: #1A1A1A;
+  transform: scale(1.03);
+}
+
+.btn-ghost-w {
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.7);
+  transition: border-color 0.2s, color 0.2s, transform 0.15s var(--ease-spr);
+}
+
+.btn-ghost-w:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: scale(1.03);
+}
+
+.btn-white {
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  transition: background 0.2s, color 0.2s, transform 0.15s var(--ease-spr);
+}
+
+.btn-white:hover {
+  background: #ffffff;
+  color: #1A1A1A;
+  transform: scale(1.03);
+}
+
+/* ── CICLO MENSTRUAL — estilos de sección ───────────────── */
+
+/* Shimmer muy sutil en el fondo de cycle cards al hover */
+.cycle-card {
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Línea de acento inferior rosa en las cycle cards al hover */
+.cycle-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0;
+  height: 1px;
+  background: #f472b6;
+  transition: width 0.35s var(--ease-expo);
+}
+
+.cycle-card:hover::after,
+.cycle-card:focus-within::after {
+  width: 100%;
+}
+
+/* ── Download store buttons ─────────────────────────────── */
+.store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 32px;
+  transition: transform 0.15s var(--ease-spr);
+}
+
+.store-btn:hover {
+  transform: scale(1.02);
+}
+
+/* ── Grain overlay ──────────────────────────────────────── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px;
+}
+
+/* ── Cookie Banner (Bottom bar style) ───────────────────── */
+.cookie-banner {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 99999;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(64, 255, 249, 0.2);
+  border-radius: 12px;
+  padding: 24px 16px;
+  animation: cookieSlideUp 0.5s var(--ease-expo);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cookie-banner.show {
+  display: block;
+}
+
+@keyframes cookieSlideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.cookie-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .cookie-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+}
+
+.cookie-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cookie-link {
+  color: #40FFF9;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.cookie-link:hover {
+  color: #ffffff;
+}
+
+.cookie-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cookie-btns button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 12px 20px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-config {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-config:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 1);
+}
+
+.btn-reject {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-reject:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 1);
+}
+
+.btn-accept {
+  background: #40FFF9;
+  border-color: #40FFF9;
+  color: #0A0A0A;
+}
+
+.btn-accept:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  transform: scale(1.02);
+}
+
+/* ── Cookie Config Modal ───────────────────────────────── */
+.cookie-config-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: cookieModalFadeIn 0.3s var(--ease-expo);
+}
+
+.cookie-config-modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+@keyframes cookieModalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.cookie-config-content {
+  background: #0A0A0A;
+  border: 1px solid rgba(64, 255, 249, 0.3);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  animation: cookieModalScaleIn 0.4s var(--ease-expo);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+@keyframes cookieModalScaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.cookie-config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cookie-config-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.cookie-config-close:hover {
+  color: #ffffff;
+}
+
+.cookie-config-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.cookie-option {
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cookie-option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cookie-option-info {
+  flex: 1;
+}
+
+.cookie-toggle {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.cookie-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.cookie-toggle input:checked + .toggle-slider {
+  background-color: #40FFF9;
+}
+
+.cookie-toggle input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.cookie-toggle.disabled {
+  background: transparent;
+}
+
+.cookie-toggle.disabled .toggle-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cookie-config-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-save {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 12px 24px;
+  background: #40FFF9;
+  border: 1px solid #40FFF9;
+  color: #0A0A0A;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-save:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  transform: scale(1.02);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-line-inner { font-size: clamp(32px, 9vw, 52px) !important; }
+}

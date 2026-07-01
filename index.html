@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Olympus — App de Cultura Física Personalizada | Entrena como un Dios</title>
+<meta name="description" content="Olympus es la app de cultura física más personalizada para mujeres y hombres. Rutinas inteligentes según tu ciclo menstrual, plan nutricional, gamificación y seguimiento en tiempo real." />
+<meta name="keywords" content="app fitness mujer, entrena con tu ciclo menstrual, cultura física personalizada, rutinas ciclo menstrual, app entrenamiento femenino, app gym mujer, olympus fitness" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://landingpageolympus-jj.vercel.app/" />
+<meta property="og:title" content="Olympus — App de Cultura Física Personalizada" />
+<meta property="og:description" content="Transforma tu cuerpo con rutinas 100% personalizadas. La única app fitness que entrena con tu ciclo menstrual." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://landingpageolympus-jj.vercel.app/" />
+<meta property="og:image" content="https://landingpageolympus-jj.vercel.app/yooo.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Olympus — Entrena como un Dios" />
+<meta name="twitter:description" content="La única app fitness hispana que entiende el ciclo menstrual como ventaja competitiva." />
+<meta name="twitter:image" content="https://landingpageolympus-jj.vercel.app/yooo.jpg" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"Olympus","description":"App de cultura física personalizada con soporte de ciclo menstrual, gamificación, ChatBot de voz y multi-deporte.","operatingSystem":"iOS, Android","applicationCategory":"HealthApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","ratingCount":"2400"}}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cyan:'#40FFF9'}}}};</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
+<link rel="stylesheet" href="css/loader.css" />
+<link rel="stylesheet" href="css/custom.css" />
+
+<style>
+body{font-family:'Inter',system-ui,sans-serif;}
+
+/* ── Hero img ── */
+#hero-img{transform:none;transition:none;}
+#hero-img.loaded{transform:none;}
+
+/* ── Hero mobile fix ── */
+@media(max-width:639px){
+  #hero-img{object-position:center 20% !important;}
+  .hero-gradient-side{display:none;}
+  .hero-gradient-mobile-bottom{display:block !important;}
+}
+
+/* ── LIQUID GLASS NAVBAR ─────────────────────────────────────
+   Efecto Apple liquid glass: blur + saturate + borde
+   luminoso superior. Sin línea azul (hero-accent-line queda
+   en el hero, no en la nav).
+─────────────────────────────────────────────────────────────── */
+#main-nav{
+  background: rgba(18,18,20,0.45) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 1px 0 0 rgba(255,255,255,0.06), 0 4px 24px 0 rgba(0,0,0,0.35);
+}
+/* Brillo interno superior — el detalle liquid glass */
+#main-nav::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.18) 30%,rgba(64,255,249,0.22) 50%,rgba(255,255,255,0.18) 70%,transparent 100%);
+  pointer-events:none;
+}
+/* Mobile menu mismo efecto glass */
+#mobile-menu{
+  background: rgba(14,14,16,0.82) !important;
+  backdrop-filter: saturate(160%) blur(18px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* ── PRESS STRIP TICKER (como Symmetry) ──────────────────────
+   Cinta infinita: dos copias del track se mueven de derecha
+   a izquierda en bucle. Se pausa al hover.
+─────────────────────────────────────────────────────────────── */
+.press-strip{
+  overflow:hidden;
+  width:100%;
+  padding:1.1rem 0;
+  background:#0a0f1a;
+  border-top:1px solid rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  position:relative;
+}
+/* Fade masks en los bordes */
+.press-strip::before,.press-strip::after{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;
+  width:120px;
+  z-index:2;
+  pointer-events:none;
+}
+.press-strip::before{left:0;background:linear-gradient(to right,#0a0f1a,transparent);}
+.press-strip::after{right:0;background:linear-gradient(to left,#0a0f1a,transparent);}
+
+.press-track{
+  display:flex;
+  width:max-content;
+  animation:pressTicker 22s linear infinite;
+}
+.press-track:hover{animation-play-state:paused;}
+
+@keyframes pressTicker{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+.press-item{
+  display:flex;
+  align-items:center;
+  gap:2.5rem;
+  padding:0 2.5rem;
+  flex-shrink:0;
+}
+.press-label{
+  font-size:0.7rem;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.18);
+  font-family:'JetBrains Mono',monospace;
+  white-space:nowrap;
+  transition:color 0.2s;
+}
+.press-label:hover{color:rgba(255,255,255,0.55);}
+.press-dot{
+  width:3px;height:3px;
+  border-radius:50%;
+  background:rgba(64,255,249,0.3);
+  flex-shrink:0;
+}
+
+/* ── SCREENSHOTS CAROUSEL ─────────────────────────────────────
+   En desktop: phone mockup izquierda + tabs derecha (como antes).
+   En mobile/tablet (<1024px): carrusel de tarjetas auto-scroll.
+─────────────────────────────────────────────────────────────── */
+
+/* Progress bar del carrusel auto */
+.carousel-progress{
+  height:2px;
+  background:rgba(255,255,255,0.08);
+  border-radius:1px;
+  overflow:hidden;
+  margin-top:1.5rem;
+}
+.carousel-progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,#40FFF9,rgba(64,255,249,0.4));
+  border-radius:1px;
+  transform-origin:left;
+  animation:carouselProg 4s linear infinite;
+}
+@keyframes carouselProg{
+  0%{transform:scaleX(0);}
+  100%{transform:scaleX(1);}
+}
+
+/* Mobile carousel container */
+.screens-carousel{
+  display:none; /* hidden on desktop */
+}
+@media(max-width:1023px){
+  .screens-desktop-layout{display:none !important;}
+  .screens-carousel{display:block;}
+}
+
+.carousel-track-wrap{
+  overflow:hidden;
+  width:100%;
+}
+.carousel-track{
+  display:flex;
+  gap:1.25rem;
+  transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  will-change:transform;
+}
+.carousel-slide{
+  flex:0 0 calc(85%);
+  max-width:340px;
+}
+@media(min-width:480px){
+  .carousel-slide{flex:0 0 calc(60%);}
+}
+.carousel-phone{
+  border:2px solid rgba(255,255,255,0.2);
+  border-radius:32px;
+  overflow:hidden;
+  position:relative;
+  aspect-ratio:9/16;
+}
+.carousel-phone-notch{
+  position:absolute;
+  top:10px;left:50%;transform:translateX(-50%);
+  width:50px;height:14px;
+  background:#000;
+  border-radius:999px;
+  z-index:10;
+}
+.carousel-phone img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:top;
+}
+.carousel-label{
+  margin-top:1rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.carousel-label-num{
+  font-size:0.7rem;font-weight:700;
+  letter-spacing:0.12em;
+  color:rgba(255,255,255,0.25);
+  font-family:'JetBrains Mono',monospace;
+}
+.carousel-label-name{
+  font-size:1rem;font-weight:900;
+  text-transform:uppercase;letter-spacing:0.06em;
+  color:white;
+}
+/* dots */
+.carousel-dots{
+  display:flex;gap:8px;justify-content:center;margin-top:1.25rem;
+}
+.carousel-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  transition:background 0.3s,transform 0.3s;
+  cursor:pointer;
+}
+.carousel-dot.active{
+  background:#40FFF9;
+  transform:scale(1.3);
+}
+
+</style>
+
+<!-- ════════════════════════════════════════════════════════════
+  COOKIE CONSENT — estilos autocontenidos
+  Van aquí, en el <head>, para que el aviso de cookies SIEMPRE
+  se vea bien aunque css/custom.css no cargue o no la defina
+  correctamente. No dependen de ningún archivo externo.
+═══════════════════════════════════════════════════════════════ -->
+<style id="cookie-consent-styles">
+  .cookie-banner{
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:999998;
+    display:flex;
+    justify-content:center;
+    padding:16px;
+    transform:translateY(120%);
+    opacity:0;
+    pointer-events:none;
+    transition:transform .45s cubic-bezier(.4,0,.2,1), opacity .45s ease;
+  }
+  .cookie-banner.show{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .cookie-content{
+    width:100%;
+    max-width:920px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:16px 24px;
+    background:rgba(20,20,22,0.92);
+    backdrop-filter:saturate(160%) blur(16px);
+    -webkit-backdrop-filter:saturate(160%) blur(16px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:14px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.45);
+    padding:20px 24px;
+  }
+  .cookie-text{
+    flex:1 1 260px;
+    color:rgba(255,255,255,0.75);
+    font-size:0.875rem;
+    line-height:1.5;
+    margin:0;
+  }
+  .cookie-btns{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    flex:0 0 auto;
+  }
+  .cookie-btns button{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:11px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:all .2s ease;
+    border:1px solid transparent;
+  }
+  .btn-config{
+    background:transparent;
+    color:rgba(255,255,255,0.65);
+    border-color:rgba(255,255,255,0.25);
+  }
+  .btn-config:hover{ color:#fff; border-color:rgba(255,255,255,0.5); }
+  .btn-reject{
+    background:transparent;
+    color:rgba(255,255,255,0.85);
+    border-color:rgba(255,255,255,0.4);
+  }
+  .btn-reject:hover{ background:rgba(255,255,255,0.08); }
+  .btn-accept{
+    background:#40FFF9;
+    color:#0a0a0a;
+    border-color:#40FFF9;
+  }
+  .btn-accept:hover{ background:#7dfffb; }
+
+  /* ── Modal de preferencias ── */
+  .cookie-config-modal{
+    position:fixed;
+    inset:0;
+    z-index:999999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,0.6);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .cookie-config-modal.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .cookie-config-content{
+    width:100%;
+    max-width:520px;
+    max-height:85vh;
+    overflow-y:auto;
+    background:#141416;
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.5);
+    padding:28px;
+    transform:translateY(16px) scale(0.98);
+    transition:transform .3s ease;
+  }
+  .cookie-config-modal.show .cookie-config-content{
+    transform:translateY(0) scale(1);
+  }
+  .cookie-config-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+  }
+  .cookie-config-close{
+    background:transparent;
+    border:none;
+    color:rgba(255,255,255,0.5);
+    cursor:pointer;
+    line-height:0;
+  }
+  .cookie-config-close:hover{ color:#fff; }
+  .cookie-config-body{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    margin-bottom:24px;
+  }
+  .cookie-option{
+    padding-bottom:18px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .cookie-option:last-child{ border-bottom:none; padding-bottom:0; }
+  .cookie-option-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .cookie-toggle{
+    position:relative;
+    flex-shrink:0;
+    display:inline-flex;
+    align-items:center;
+  }
+  .cookie-toggle.disabled .toggle-label{
+    font-size:0.65rem;
+    color:rgba(255,255,255,0.35);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-family:'JetBrains Mono',monospace;
+    white-space:nowrap;
+  }
+  .cookie-toggle input[type="checkbox"]{
+    position:absolute;
+    opacity:0;
+    width:44px;
+    height:24px;
+    margin:0;
+    cursor:pointer;
+  }
+  .cookie-toggle .toggle-slider{
+    display:inline-block;
+    width:44px;
+    height:24px;
+    background:rgba(255,255,255,0.15);
+    border-radius:999px;
+    position:relative;
+    transition:background .2s ease;
+  }
+  .cookie-toggle .toggle-slider::before{
+    content:'';
+    position:absolute;
+    top:3px;left:3px;
+    width:18px;height:18px;
+    background:#fff;
+    border-radius:50%;
+    transition:transform .2s ease;
+  }
+  .cookie-toggle input:checked + .toggle-slider{
+    background:#40FFF9;
+  }
+  .cookie-toggle input:checked + .toggle-slider::before{
+    transform:translateX(20px);
+  }
+  .cookie-toggle input:focus-visible + .toggle-slider{
+    outline:2px solid #40FFF9;
+    outline-offset:2px;
+  }
+  .btn-save{
+    width:100%;
+    background:#40FFF9;
+    color:#0a0a0a;
+    border:none;
+    border-radius:8px;
+    padding:13px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .btn-save:hover{ background:#7dfffb; }
+
+  @media(max-width:639px){
+    .cookie-content{ flex-direction:column; align-items:stretch; text-align:left; }
+    .cookie-btns{ flex-direction:column; }
+    .cookie-btns button{ width:100%; }
+  }
+</style>
+</head>
+
+<body class="bg-[#181818] text-white overflow-x-hidden">
+
+<!-- AMBIENT -->
+<div class="grain-overlay" aria-hidden="true"></div>
+<div class="scanline" aria-hidden="true"></div>
+
+<!-- LOADER -->
+<div id="loader" role="status" aria-label="Cargando Olympus">
+  <div class="loader-logo">
+    <span>O</span><span>L</span><span>Y</span>
+    <span>M</span><span>P</span><span>U</span>
+    <span class="accent">S</span>
+  </div>
+  <div class="loader-track"><div class="loader-fill" id="loader-fill"></div></div>
+  <div class="loader-pct" id="loader-pct">000%</div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  NAV — Liquid Glass
+  Sin línea azul (hero-accent-line eliminada del hero también)
+════════════════════════════════════════════════ -->
+<nav id="main-nav" class="fixed top-0 left-0 w-full z-50 border-b border-transparent" style="position:fixed;">
+  <div class="max-w-7xl mx-auto px-8 md:px-16 flex items-center justify-between h-16">
+    <a href="#" class="flex items-center gap-3 group">
+      <span class="font-black text-lg tracking-[0.2em] uppercase text-white transition-colors duration-200 group-hover:text-[#40FFF9]"
+        style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.18em;">Olympus</span>
+    </a>
+    <ul class="hidden md:flex items-center gap-8 list-none">
+      <li><a href="#features" class="text-xs font-bold tracking-widest uppercase text-white/70 hover:text-white transition-colors duration-200 whitespace-nowrap" style="font-family:'JetBrains Mono',monospace">Características</a></li>
+      <li><a href="#screenshots" class="text-xs font-bold tracking-widest uppercase text-white/70 hover:text-white transition-colors duration-200 whitespace-nowrap" style="font-family:'JetBrains Mono',monospace">Capturas</a></li>
+      <li><a href="#testimonials" class="text-xs font-bold tracking-widest uppercase text-white/70 hover:text-white transition-colors duration-200 whitespace-nowrap" style="font-family:'JetBrains Mono',monospace">Testimonios</a></li>
+      <li><a href="#download" class="text-xs font-bold tracking-widest uppercase text-white/70 hover:text-white transition-colors duration-200 whitespace-nowrap" style="font-family:'JetBrains Mono',monospace">Descargar</a></li>
+    </ul>
+    <a href="#download"
+      class="hidden md:inline-flex items-center gap-2 font-black text-xs px-6 py-2.5 uppercase tracking-widest border border-white/50 text-white hover:bg-white hover:text-black transition-all duration-200 whitespace-nowrap"
+      style="font-family:'JetBrains Mono',monospace">
+      <i class="ri-download-2-line"></i>Descargar
+    </a>
+    <button id="menu-btn" class="md:hidden text-2xl text-white transition-colors hover:text-[#40FFF9]"
+      aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+      <i id="menu-icon" class="ri-menu-3-line text-2xl"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" role="navigation" aria-label="Menú móvil">
+  <a href="#features">Características</a>
+  <a href="#screenshots">Capturas</a>
+  <a href="#testimonials">Testimonios</a>
+  <a href="#download">Descargar</a>
+  <a href="#download" class="border-2 border-[#40FFF9] text-[#40FFF9] text-center py-4 mt-4" style="-webkit-text-fill-color:#40FFF9">
+    <i class="ri-download-2-line mr-2"></i>Descargar App
+  </a>
+</div>
+
+<main>
+
+<!-- ════════════════════════════════════════════
+  HERO — sin hero-accent-line (era la línea azul)
+════════════════════════════════════════════════ -->
+<section id="hero" class="relative min-h-screen w-full overflow-hidden bg-[#1A1A1A] flex flex-col">
+  <div class="absolute inset-0 w-full h-full overflow-hidden">
+    <img id="hero-img"
+      class="hero-parallax w-full h-full object-cover object-top"
+      src="images/yooo.jpg"
+      alt="Gimnasio de alto rendimiento — Olympus" />
+    <!-- FIX: Gradiente lateral reducido — no oscurece la foto -->
+    <div class="hero-gradient-side absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/60 via-[#1A1A1A]/25 to-transparent"></div>
+    <!-- FIX mobile: gradiente desde abajo -->
+    <div class="hero-gradient-mobile-bottom absolute inset-0" style="display:none;background:linear-gradient(to top,#1A1A1A 0%,rgba(26,26,26,0.75) 45%,rgba(26,26,26,0.1) 100%);"></div>
+    <!-- Gradiente inferior sutil -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/60 via-transparent to-[#1A1A1A]/10"></div>
+  </div>
+
+  <!-- Contenido hero -->
+  <div class="relative z-10 flex flex-col justify-center min-h-screen max-w-7xl mx-auto w-full px-8 md:px-16 pt-24 pb-16">
+    <style>
+    @media(max-width:639px){
+      #hero .relative.z-10{
+        padding-top: 120px;
+        padding-bottom: 80px;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      #hero h1{
+        font-size: 2.5rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 1.5rem !important;
+      }
+      #hero .reveal.d-1 p{
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 2rem !important;
+      }
+      #hero .reveal.d-2{
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+      #hero .reveal.d-3{
+        gap: 1.5rem !important;
+      }
+    }
+    </style>
+    <p class="hero-eyebrow text-white/50 text-xs font-bold tracking-[0.4em] uppercase mb-6" style="font-family:'JetBrains Mono',monospace">
+      <span>Cultura Física Personalizada</span>
+    </p>
+    <h1 class="mb-7 max-w-4xl"
+      style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,5.75rem);line-height:0.9;letter-spacing:0.02em;text-transform:uppercase">
+      <div class="hero-line"><span class="hero-line-inner text-white">ENTRENA</span></div>
+      <div class="hero-line"><span class="hero-line-inner text-white">COMO</span></div>
+      <div class="hero-line"><span class="hero-line-inner" style="color:#40FFF9">UN DIOS.</span></div>
+    </h1>
+    <p class="reveal d-1 text-white/70 text-lg md:text-xl max-w-lg leading-relaxed mb-10">
+      Olympus es la app de cultura física que se adapta a ti. Rutinas personalizadas, nutrición inteligente y seguimiento real de tu progreso.
+    </p>
+    <div class="reveal d-2 flex flex-col sm:flex-row gap-4 mb-16">
+      <a href="#download" class="btn-cyan inline-flex items-center justify-center gap-3 font-black text-sm px-8 py-4 uppercase tracking-widest whitespace-nowrap">
+        <i class="ri-apple-fill text-lg"></i>App Store
+      </a>
+      <a href="#download" class="btn-ghost-w inline-flex items-center justify-center gap-3 font-black text-sm px-8 py-4 uppercase tracking-widest whitespace-nowrap">
+        <i class="ri-google-play-fill text-lg"></i>Google Play
+      </a>
+    </div>
+    <div class="reveal d-3 flex flex-wrap gap-10">
+      <div><p class="text-white text-3xl font-black leading-none">50K+</p><p class="text-white/40 text-xs uppercase tracking-widest mt-1" style="font-family:'JetBrains Mono',monospace">Usuarios activos</p></div>
+      <div class="flex items-center gap-10"><div class="w-px h-10 bg-white/15"></div><div><p class="text-white text-3xl font-black leading-none">4.9★</p><p class="text-white/40 text-xs uppercase tracking-widest mt-1" style="font-family:'JetBrains Mono',monospace">Calificación</p></div></div>
+      <div class="flex items-center gap-10"><div class="w-px h-10 bg-white/15"></div><div><p class="text-white text-3xl font-black leading-none">200+</p><p class="text-white/40 text-xs uppercase tracking-widest mt-1" style="font-family:'JetBrains Mono',monospace">Rutinas</p></div></div>
+    </div>
+  </div>
+  <div class="scroll-hint absolute bottom-8 right-10 flex items-center gap-3 z-10 transition-opacity duration-300" aria-hidden="true">
+    <span class="text-white/30 text-xs tracking-widest uppercase" style="font-family:'JetBrains Mono',monospace">Scroll</span>
+    <div class="w-px h-12 bg-white/20"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+  PRESS STRIP — Cinta infinita
+════════════════════════════════════════════════ -->
+<div class="press-strip" aria-label="Como aparece en">
+  <!-- Dos copias exactas del mismo track → illusion de bucle infinito -->
+  <div class="press-track" id="press-track">
+    <!-- Copia 1 -->
+    <div class="press-item">
+      <span class="press-label">Forbes</span><span class="press-dot"></span>
+      <span class="press-label">El País</span><span class="press-dot"></span>
+      <span class="press-label">Runner's World</span><span class="press-dot"></span>
+      <span class="press-label">Vogue España</span><span class="press-dot"></span>
+      <span class="press-label">Product Hunt</span><span class="press-dot"></span>
+      <span class="press-label">Marca</span><span class="press-dot"></span>
+      <span class="press-label">As</span><span class="press-dot"></span>
+    </div>
+    <!-- Copia 2 — idéntica para el loop sin saltos -->
+    <div class="press-item">
+      <span class="press-label">Forbes</span><span class="press-dot"></span>
+      <span class="press-label">El País</span><span class="press-dot"></span>
+      <span class="press-label">Runner's World</span><span class="press-dot"></span>
+      <span class="press-label">Vogue España</span><span class="press-dot"></span>
+      <span class="press-label">Product Hunt</span><span class="press-dot"></span>
+      <span class="press-label">Marca</span><span class="press-dot"></span>
+      <span class="press-label">As</span><span class="press-dot"></span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features" class="bg-[#0D0D0D] py-0 overflow-hidden">
+  <div class="reveal relative w-full h-[420px] md:h-[520px] overflow-hidden">
+    <img class="w-full h-full object-cover object-center"
+      src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&q=80"
+      alt="Entrenamiento de alto rendimiento" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0D0D0D]/30 via-transparent to-[#0D0D0D]"></div>
+    <div class="absolute bottom-10 left-8 md:left-16 z-10 reveal d-2">
+      <p class="text-white/70 text-xs font-bold tracking-[0.4em] uppercase mb-3" style="font-family:'JetBrains Mono',monospace">Por qué Olympus</p>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,5rem);line-height:0.92;letter-spacing:0.02em" class="text-white uppercase">TODO LO QUE<br/>NECESITAS.</h2>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-8 md:px-16 pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-l border-t border-white/10">
+      <div class="feature-card border-r border-b border-white/10 p-8 hover:bg-white/5 transition-all duration-300 cursor-default reveal d-1">
+        <div class="w-10 h-10 flex items-center justify-center mb-5"><i class="feature-card-icon ri-brain-line text-3xl"></i></div>
+        <h3 class="text-white font-black text-xl uppercase tracking-wide mb-3">IA Personalizada</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Algoritmos que aprenden de tu progreso y adaptan cada rutina a tus objetivos únicos.</p>
+        <div class="feature-card-underline"></div>
+      </div>
+      <div class="feature-card border-r border-b border-white/10 p-8 hover:bg-white/5 transition-all duration-300 cursor-default reveal d-2">
+        <div class="w-10 h-10 flex items-center justify-center mb-5"><i class="feature-card-icon ri-heart-pulse-line text-3xl"></i></div>
+        <h3 class="text-white font-black text-xl uppercase tracking-wide mb-3">Seguimiento Real</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Sincroniza tu Apple Watch o Wear OS y mira calorías, series, repeticiones y frecuencia cardíaca en tiempo real, directo desde tu wearable.</p>
+        <div class="feature-card-underline"></div>
+      </div>
+      <div class="feature-card border-r border-b border-white/10 p-8 hover:bg-white/5 transition-all duration-300 cursor-default reveal d-3">
+        <div class="w-10 h-10 flex items-center justify-center mb-5"><i class="feature-card-icon ri-restaurant-line text-3xl"></i></div>
+        <h3 class="text-white font-black text-xl uppercase tracking-wide mb-3">Nutrición Inteligente</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Recomendaciones nutricionales y de hidratación que se ajustan a tu objetivo, tu metabolismo y tu ritmo de entrenamiento.</p>
+        <div class="feature-card-underline"></div>
+      </div>
+      <div class="feature-card border-r border-b border-white/10 p-8 hover:bg-white/5 transition-all duration-300 cursor-default reveal d-1">
+        <div class="w-10 h-10 flex items-center justify-center mb-5"><i class="feature-card-icon ri-trophy-line text-3xl"></i></div>
+        <h3 class="text-white font-black text-xl uppercase tracking-wide mb-3">Retos y Logros</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Desafíos semanales, insignias y tablas de clasificación para mantenerte motivado.</p>
+        <div class="feature-card-underline"></div>
+      </div>
+      <div class="feature-card border-r border-b border-white/10 p-8 hover:bg-white/5 transition-all duration-300 cursor-default reveal d-2">
+        <div class="w-10 h-10 flex items-center justify-center mb-5"><i class="feature-card-icon ri-video-line text-3xl"></i></div>
+        <h3 class="text-white font-black text-xl uppercase tracking-wide mb-3">Gif HD</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Más de 500 Gif detallados para cada ejercicio.</p>
+        <div class="feature-card-underline"></div>
+      </div>
+      <div class="feature-card border-r border-b border-white/10 p-8 hover:bg-white/5 transition-all duration-300 cursor-default reveal d-3">
+        <div class="w-10 h-10 flex items-center justify-center mb-5"><i class="feature-card-icon ri-bar-chart-2-line text-3xl"></i></div>
+        <h3 class="text-white font-black text-xl uppercase tracking-wide mb-3">Análisis de Progreso</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Gráficas de fuerza, volumen y composición corporal para ver tu evolución.</p>
+        <div class="feature-card-underline"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+  SCREENSHOTS — "Diseñada para ganar"
+  Desktop (≥1024px): phone mockup + tabs (original)
+  Mobile/Tablet (<1024px): carrusel auto-scroll con dots
+════════════════════════════════════════════════ -->
+<section id="screenshots" class="bg-[#0D0D0D] py-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-8 md:px-16">
+
+    <!-- Header — siempre visible -->
+    <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <p class="text-white/40 text-xs font-bold tracking-[0.4em] uppercase mb-4" style="font-family:'JetBrains Mono',monospace">La app en acción</p>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,5rem);line-height:0.92" class="text-white uppercase">DISEÑADA<br/>PARA GANAR.</h2>
+      </div>
+      <p class="text-white/50 text-base max-w-xs leading-relaxed md:text-right reveal reveal-right">
+        Interfaz limpia, rápida e intuitiva. Cada pantalla diseñada para que no pierdas el foco.
+      </p>
+    </div>
+
+    <!-- ── DESKTOP layout (≥1024px) ── -->
+    <div class="screens-desktop-layout flex flex-col lg:flex-row gap-12 items-center reveal">
+      <div class="reveal reveal-left flex items-end gap-4 flex-shrink-0">
+        <div class="relative w-[240px] md:w-[280px]">
+          <div class="relative border-2 border-white/30 rounded-[36px] overflow-hidden">
+            <div class="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-4 bg-black rounded-full z-10"></div>
+            <img id="phone-img" class="phone-screen-img w-full h-[500px] object-cover object-top"
+              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=480&q=85"
+              alt="Dashboard — Olympus App" />
+          </div>
+          <div class="mt-4">
+            <span class="text-white/40 text-xs font-bold tracking-widest uppercase" style="font-family:'JetBrains Mono',monospace">App Preview</span>
+          </div>
+        </div>
+        <div class="hidden md:block w-[140px] opacity-25 mb-8">
+          <div class="border border-white/10 rounded-[28px] overflow-hidden">
+            <img id="phone-img-2" class="w-full h-[280px] object-cover object-top"
+              src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=300&q=70" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-right flex-1 flex flex-col gap-0 border-t border-white/10">
+        <button class="screen-tab active flex items-center justify-between py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer text-white">
+          <div class="flex items-center gap-4"><span class="tab-num text-xs font-bold tracking-widest text-white/40" style="font-family:'JetBrains Mono',monospace">01</span><span class="font-black text-xl uppercase tracking-wide">Dashboard</span></div>
+          <i class="tab-arrow ri-arrow-right-line text-lg gradient-text translate-x-1"></i>
+        </button>
+        <button class="screen-tab flex items-center justify-between py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer text-white/25 hover:text-white/60" style="opacity:0.25">
+          <div class="flex items-center gap-4"><span class="tab-num text-xs font-bold tracking-widest text-white/15" style="font-family:'JetBrains Mono',monospace">02</span><span class="font-black text-xl uppercase tracking-wide">Rutinas</span></div>
+          <i class="tab-arrow ri-arrow-right-line text-lg transition-transform duration-200"></i>
+        </button>
+        <button class="screen-tab flex items-center justify-between py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer text-white/25 hover:text-white/60" style="opacity:0.25">
+          <div class="flex items-center gap-4"><span class="tab-num text-xs font-bold tracking-widest text-white/15" style="font-family:'JetBrains Mono',monospace">03</span><span class="font-black text-xl uppercase tracking-wide">Nutrición</span></div>
+          <i class="tab-arrow ri-arrow-right-line text-lg transition-transform duration-200"></i>
+        </button>
+        <button class="screen-tab flex items-center justify-between py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer text-white/25 hover:text-white/60" style="opacity:0.25">
+          <div class="flex items-center gap-4"><span class="tab-num text-xs font-bold tracking-widest text-white/15" style="font-family:'JetBrains Mono',monospace">04</span><span class="font-black text-xl uppercase tracking-wide">Progreso</span></div>
+          <i class="tab-arrow ri-arrow-right-line text-lg transition-transform duration-200"></i>
+        </button>
+        <button class="screen-tab flex items-center justify-between py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer text-white/25 hover:text-white/60" style="opacity:0.25">
+          <div class="flex items-center gap-4"><span class="tab-num text-xs font-bold tracking-widest text-white/15" style="font-family:'JetBrains Mono',monospace">05</span><span class="font-black text-xl uppercase tracking-wide">Perfil</span></div>
+          <i class="tab-arrow ri-arrow-right-line text-lg transition-transform duration-200"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── MOBILE/TABLET carrusel auto-scroll (<1024px) ── -->
+    <div class="screens-carousel">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="carousel-track">
+          <div class="carousel-slide">
+            <div class="carousel-phone"><div class="carousel-phone-notch"></div><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=480&q=85" alt="Dashboard Olympus" loading="lazy" /></div>
+            <div class="carousel-label"><span class="carousel-label-num">01</span><span class="carousel-label-name">Dashboard</span></div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-phone"><div class="carousel-phone-notch"></div><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=480&q=85" alt="Rutinas Olympus" loading="lazy" /></div>
+            <div class="carousel-label"><span class="carousel-label-num">02</span><span class="carousel-label-name">Rutinas</span></div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-phone"><div class="carousel-phone-notch"></div><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=480&q=85" alt="Nutrición Olympus" loading="lazy" /></div>
+            <div class="carousel-label"><span class="carousel-label-num">03</span><span class="carousel-label-name">Nutrición</span></div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-phone"><div class="carousel-phone-notch"></div><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee81244?w=480&q=85" alt="Progreso Olympus" loading="lazy" /></div>
+            <div class="carousel-label"><span class="carousel-label-num">04</span><span class="carousel-label-name">Progreso</span></div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-phone"><div class="carousel-phone-notch"></div><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=480&q=85" alt="Perfil Olympus" loading="lazy" /></div>
+            <div class="carousel-label"><span class="carousel-label-num">05</span><span class="carousel-label-name">Perfil</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- Dots -->
+      <div class="carousel-dots" id="carousel-dots">
+        <div class="carousel-dot active" data-idx="0"></div>
+        <div class="carousel-dot" data-idx="1"></div>
+        <div class="carousel-dot" data-idx="2"></div>
+        <div class="carousel-dot" data-idx="3"></div>
+        <div class="carousel-dot" data-idx="4"></div>
+      </div>
+      <!-- Progress bar -->
+      <div class="carousel-progress"><div class="carousel-progress-fill" id="carousel-prog"></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CICLO MENSTRUAL -->
+<section id="cycle" class="relative bg-[#0D0D0D] py-24 overflow-hidden border-t border-white/5">
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full opacity-[0.04]"
+      style="background:radial-gradient(ellipse at center,#f472b6 0%,transparent 70%);"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-8 md:px-16">
+    <div class="reveal flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-bold tracking-widest uppercase border border-pink-500/30 text-pink-400" style="font-family:'JetBrains Mono',monospace">
+            <i class="ri-moon-line"></i> Solo en Olympus
+          </span>
+        </div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);line-height:0.92" class="text-white uppercase">
+          ENTRENA CON<br/><span style="color:#f472b6">TU CICLO,</span><br/>NO CONTRA ÉL.
+        </h2>
+      </div>
+      <p class="text-white/50 text-base max-w-sm leading-relaxed lg:text-right reveal reveal-right">Olympus es la única app fitness que entiende tu ciclo menstrual como lo que es: una ventaja competitiva. Cuatro fases, cuatro estrategias distintas.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border-l border-t border-white/10 mb-16">
+      <div class="cycle-card reveal d-1 border-r border-b border-white/10 p-6 group hover:bg-[#1a0d14] transition-colors duration-300">
+        <div class="flex items-center gap-3 mb-4"><div class="w-3 h-3 rounded-full bg-red-400 flex-shrink-0"></div><span class="text-white/30 text-xs font-bold tracking-widest uppercase" style="font-family:'JetBrains Mono',monospace">Días 1–5</span></div>
+        <h3 class="text-white font-black text-lg uppercase tracking-wide mb-3" style="color:#f87171">Menstrual</h3>
+        <p class="text-white/40 text-sm leading-relaxed mb-4">Racha protegida automáticamente. Sin penalización por descanso. XP de recuperación activo.</p>
+        <ul class="flex flex-col gap-2">
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-shield-check-line text-red-400 mt-0.5 flex-shrink-0"></i>Protección de racha activa</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-heart-line text-red-400 mt-0.5 flex-shrink-0"></i>Rutinas de bajo impacto</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-notification-3-line text-red-400 mt-0.5 flex-shrink-0"></i>Notificación de cuidado</li>
+        </ul>
+      </div>
+      <div class="cycle-card reveal d-2 border-r border-b border-white/10 p-6 group hover:bg-[#0d1a14] transition-colors duration-300">
+        <div class="flex items-center gap-3 mb-4"><div class="w-3 h-3 rounded-full bg-emerald-400 flex-shrink-0"></div><span class="text-white/30 text-xs font-bold tracking-widest uppercase" style="font-family:'JetBrains Mono',monospace">Días 6–13</span></div>
+        <h3 class="text-white font-black text-lg uppercase tracking-wide mb-3" style="color:#34d399">Folicular</h3>
+        <p class="text-white/40 text-sm leading-relaxed mb-4">Energía en ascenso. Olympus aumenta la intensidad progresivamente y propone nuevos retos.</p>
+        <ul class="flex flex-col gap-2">
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-flashlight-line text-emerald-400 mt-0.5 flex-shrink-0"></i>Retos semanales activados</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-bar-chart-2-line text-emerald-400 mt-0.5 flex-shrink-0"></i>Intensidad progresiva</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-trophy-line text-emerald-400 mt-0.5 flex-shrink-0"></i>Bonus XP por PR</li>
+        </ul>
+      </div>
+      <div class="cycle-card reveal d-3 border-r border-b border-white/10 p-6 group hover:bg-[#1a160d] transition-colors duration-300">
+        <div class="flex items-center gap-3 mb-4"><div class="w-3 h-3 rounded-full bg-amber-400 flex-shrink-0"></div><span class="text-white/30 text-xs font-bold tracking-widest uppercase" style="font-family:'JetBrains Mono',monospace">Días 14–17</span></div>
+        <h3 class="text-white font-black text-lg uppercase tracking-wide mb-3" style="color:#fbbf24">Ovulación</h3>
+        <p class="text-white/40 text-sm leading-relaxed mb-4">Pico de rendimiento. El momento ideal para levantar más pesado y romper récords personales.</p>
+        <ul class="flex flex-col gap-2">
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-star-line text-amber-400 mt-0.5 flex-shrink-0"></i>Modo récord personal</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-medal-line text-amber-400 mt-0.5 flex-shrink-0"></i>XP multiplicado ×1.5</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-speed-up-line text-amber-400 mt-0.5 flex-shrink-0"></i>Alta intensidad recomendada</li>
+        </ul>
+      </div>
+      <div class="cycle-card reveal d-4 border-r border-b border-white/10 p-6 group hover:bg-[#130d1a] transition-colors duration-300">
+        <div class="flex items-center gap-3 mb-4"><div class="w-3 h-3 rounded-full bg-violet-400 flex-shrink-0"></div><span class="text-white/30 text-xs font-bold tracking-widest uppercase" style="font-family:'JetBrains Mono',monospace">Días 18–28</span></div>
+        <h3 class="text-white font-black text-lg uppercase tracking-wide mb-3" style="color:#a78bfa">Lútea</h3>
+        <p class="text-white/40 text-sm leading-relaxed mb-4">Olympus ajusta las expectativas automáticamente. No recalcula tu nivel por rendir menos en esta fase.</p>
+        <ul class="flex flex-col gap-2">
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-equalizer-line text-violet-400 mt-0.5 flex-shrink-0"></i>Expectativas ajustadas</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-mental-health-line text-violet-400 mt-0.5 flex-shrink-0"></i>Mensajes de bienestar</li>
+          <li class="flex items-start gap-2 text-white/50 text-xs"><i class="ri-chat-voice-line text-violet-400 mt-0.5 flex-shrink-0"></i>ChatBot adapta su tono</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reveal flex flex-col md:flex-row items-center gap-6 px-8 py-6 border border-pink-500/20 bg-pink-500/5">
+      <i class="ri-sparkling-2-line text-3xl text-pink-400 flex-shrink-0"></i>
+      <div>
+        <p class="text-white font-black text-base uppercase tracking-wide mb-1">ChatBot Olympus conoce tu fase en tiempo real</p>
+        <p class="text-white/40 text-sm leading-relaxed">Nuestro asistente de voz (STT/TTS) accede al contexto de tu ciclo activo. Adapta las instrucciones de entrenamiento, el tono motivacional y las recomendaciones nutricionales según dónde estés en tu ciclo.</p>
+      </div>
+      <a href="#download" class="flex-shrink-0 btn-pink inline-flex items-center gap-2 font-black text-xs px-6 py-3 uppercase tracking-widest whitespace-nowrap border border-pink-500/50 text-pink-400 hover:bg-pink-500/10 transition-colors duration-200">
+        Probar gratis <i class="ri-arrow-right-line"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="bg-[#0D0D0D] overflow-hidden">
+  <div class="reveal relative w-full h-[380px] overflow-hidden">
+    <img class="w-full h-full object-cover object-center"
+      src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1920&q=80"
+      alt="Comunidad Olympus" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0D0D0D]/20 via-black/30 to-[#0D0D0D]"></div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center">
+        <p class="text-white/60 text-xs font-bold tracking-[0.4em] uppercase mb-4" style="font-family:'JetBrains Mono',monospace">Lo que dicen</p>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,5rem);line-height:0.92" class="text-white uppercase">ELLOS YA<br/>TRANSFORMARON.</h2>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-8 md:px-16 pb-24">
+    <div class="flex flex-col lg:flex-row gap-12 items-start pt-16">
+      <div id="testimonial-content" class="testimonial-content flex-1 reveal">
+        <div class="text-white/10 text-9xl font-black leading-none mb-2 select-none" style="font-family:Georgia,serif">"</div>
+        <p id="t-quote" class="text-white text-2xl md:text-3xl font-bold leading-snug mb-8 max-w-2xl">En 3 meses bajé 12 kg y gané músculo que nunca había logrado con otros métodos. La personalización es brutal.</p>
+        <div class="flex items-center gap-4 mb-6 flex-wrap">
+          <img id="t-avatar" class="w-14 h-14 rounded-full object-cover object-top border border-white/15"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80" alt="Carlos Mendoza" />
+          <div>
+            <p id="t-name" class="text-white font-black text-base uppercase tracking-wide">Carlos Mendoza</p>
+            <p id="t-role" class="text-white/40 text-xs uppercase tracking-widest" style="font-family:'JetBrains Mono',monospace">Atleta amateur</p>
+          </div>
+          <span id="t-badge" class="testimonial-badge">−12 kg en 3 meses</span>
+        </div>
+        <div class="flex gap-1">
+          <i class="ri-star-fill text-white/30 text-sm"></i><i class="ri-star-fill text-white/30 text-sm"></i>
+          <i class="ri-star-fill text-white/30 text-sm"></i><i class="ri-star-fill text-white/30 text-sm"></i>
+          <i class="ri-star-fill text-white/30 text-sm"></i>
+        </div>
+      </div>
+      <div class="reveal reveal-right flex-shrink-0 flex flex-col gap-0 border-t border-white/10 min-w-[280px]">
+        <button class="testimonial-tab active flex items-center gap-4 py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer">
+          <img class="w-10 h-10 rounded-full object-cover object-top flex-shrink-0 border border-white/15" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80" alt="Carlos Mendoza" />
+          <div><p class="text-white font-black text-sm uppercase tracking-wide">Carlos Mendoza</p><p class="text-white/40 text-xs" style="font-family:'JetBrains Mono',monospace">Atleta amateur</p></div>
+        </button>
+        <button class="testimonial-tab flex items-center gap-4 py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer" style="opacity:0.25">
+          <img class="w-10 h-10 rounded-full object-cover object-top flex-shrink-0 border border-white/15" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80" alt="Valentina Ríos" />
+          <div><p class="text-white font-black text-sm uppercase tracking-wide">Valentina Ríos</p><p class="text-white/40 text-xs" style="font-family:'JetBrains Mono',monospace">Instructora de fitness</p></div>
+        </button>
+        <button class="testimonial-tab flex items-center gap-4 py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer" style="opacity:0.25">
+          <img class="w-10 h-10 rounded-full object-cover object-top flex-shrink-0 border border-white/15" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt="Andrés Castillo" />
+          <div><p class="text-white font-black text-sm uppercase tracking-wide">Andrés Castillo</p><p class="text-white/40 text-xs" style="font-family:'JetBrains Mono',monospace">Empresario</p></div>
+        </button>
+        <button class="testimonial-tab flex items-center gap-4 py-5 px-2 border-b border-white/10 text-left transition-all duration-200 cursor-pointer" style="opacity:0.25">
+          <img class="w-10 h-10 rounded-full object-cover object-top flex-shrink-0 border border-white/15" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=120&q=80" alt="Sofía Herrera" />
+          <div><p class="text-white font-black text-sm uppercase tracking-wide">Sofía Herrera</p><p class="text-white/40 text-xs" style="font-family:'JetBrains Mono',monospace">Estudiante universitaria</p></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="bg-[#1A1A1A] overflow-hidden">
+  <div class="relative w-full min-h-[600px] flex items-center">
+    <img class="absolute inset-0 w-full h-full object-cover object-center"
+      src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=1920&q=80"
+      alt="Descarga Olympus" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-r from-[#1A1A1A] via-[#1A1A1A]/82 to-[#1A1A1A]/20"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent"></div>
+    <div class="download-left-line" aria-hidden="true"></div>
+    <div class="relative z-10 max-w-7xl mx-auto w-full px-8 md:px-16 py-20">
+      <div class="reveal">
+        <p class="text-white/50 text-xs font-bold tracking-[0.4em] uppercase mb-6" style="font-family:'JetBrains Mono',monospace">Empieza hoy</p>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,7rem);line-height:0.92;letter-spacing:0.02em" class="text-white uppercase mb-6">
+          TU MEJOR<br/>VERSIÓN<br/><em class="not-italic" style="color:#40FFF9">TE ESPERA.</em>
+        </h2>
+        <p class="text-white/60 text-lg max-w-md leading-relaxed mb-10">Descarga Olympus gratis. Primer mes premium sin costo. Sin tarjeta de crédito. Sin excusas.</p>
+      </div>
+      <div class="reveal d-2 flex flex-col sm:flex-row gap-4 mb-12">
+        <a href="#" class="store-btn btn-white font-black text-sm uppercase tracking-widest whitespace-nowrap">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-apple-fill text-2xl"></i></div>
+          <div class="text-left"><p class="text-[10px] font-normal opacity-60 tracking-normal normal-case">Disponible en</p><p class="text-base font-black">App Store</p></div>
+        </a>
+        <a href="#" class="store-btn btn-ghost-w font-black text-sm uppercase tracking-widest whitespace-nowrap">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-google-play-fill text-2xl"></i></div>
+          <div class="text-left"><p class="text-[10px] font-normal opacity-60 tracking-normal normal-case">Disponible en</p><p class="text-base font-black">Google Play</p></div>
+        </a>
+      </div>
+      <div class="reveal d-3 flex flex-wrap gap-8">
+        <div class="flex items-center gap-2"><i class="ri-shield-check-line text-white/40 text-base"></i><span class="text-white/50 text-sm">100% Gratis</span></div>
+        <div class="flex items-center gap-2"><i class="ri-lock-line text-white/40 text-base"></i><span class="text-white/50 text-sm">Sin compromisos</span></div>
+        <div class="flex items-center gap-2"><i class="ri-star-fill text-white/40 text-base"></i><span class="text-white/50 text-sm">4.9★ en tiendas</span></div>
+        <div class="flex items-center gap-2"><i class="ri-group-line text-white/40 text-base"></i><span class="text-white/50 text-sm">50,000+ usuarios</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#0A0A0A] border-t border-white/10 pt-16 pb-8 px-6 md:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row justify-between gap-12 mb-14">
+      <div class="max-w-xs reveal">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-white font-black text-xl tracking-[0.2em] uppercase" style="font-family:'Bebas Neue',sans-serif;font-size:24px">Olympus</span>
+        </div>
+        <div class="w-12 h-px mb-5 bg-[#40FFF9]"></div>
+        <p class="text-white/40 text-sm leading-relaxed mb-6">La app de cultura física más personalizada. Transforma tu cuerpo, supera tus límites.</p>
+        <div class="flex gap-3">
+          <a href="#" rel="nofollow" class="social-icon" aria-label="Instagram"><i class="ri-instagram-line text-base"></i></a>
+          <a href="#" rel="nofollow" class="social-icon" aria-label="TikTok"><i class="ri-tiktok-line text-base"></i></a>
+          <a href="#" rel="nofollow" class="social-icon" aria-label="YouTube"><i class="ri-youtube-line text-base"></i></a>
+          <a href="#" rel="nofollow" class="social-icon" aria-label="Twitter/X"><i class="ri-twitter-x-line text-base"></i></a>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-10 reveal d-2">
+        <div>
+          <h4 class="text-white font-black text-xs uppercase tracking-widest mb-5" style="font-family:'JetBrains Mono',monospace">Producto</h4>
+          <ul class="flex flex-col gap-3 list-none">
+            <li><a href="#features" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Características</a></li>
+            <li><a href="#screenshots" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Capturas</a></li>
+            <li><a href="#testimonials" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Testimonios</a></li>
+            <li><a href="#download" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Precios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-black text-xs uppercase tracking-widest mb-5" style="font-family:'JetBrains Mono',monospace">Soporte</h4>
+          <ul class="flex flex-col gap-3 list-none">
+            <li><a href="#" rel="nofollow" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Centro de ayuda</a></li>
+            <li><a href="#" rel="nofollow" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Contacto</a></li>
+            <li><a href="#" rel="nofollow" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Comunidad</a></li>
+            <li><a href="#" rel="nofollow" class="text-white/40 text-sm hover:text-white transition-colors duration-200">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-black text-xs uppercase tracking-widest mb-5" style="font-family:'JetBrains Mono',monospace">Descargar</h4>
+          <div class="flex flex-col gap-3">
+            <a href="#" class="inline-flex items-center gap-3 border border-white/15 px-4 py-3 hover:border-white/40 transition-all duration-200 cursor-pointer group">
+              <i class="ri-apple-fill text-white/40 group-hover:text-white text-lg transition-colors"></i>
+              <div><p class="text-white/30 text-xs">Disponible en</p><p class="text-white/60 group-hover:text-white text-sm font-bold transition-colors">App Store</p></div>
+            </a>
+            <a href="#" class="inline-flex items-center gap-3 border border-white/15 px-4 py-3 hover:border-white/40 transition-all duration-200 cursor-pointer group">
+              <i class="ri-google-play-fill text-white/40 group-hover:text-white text-lg transition-colors"></i>
+              <div><p class="text-white/30 text-xs">Disponible en</p><p class="text-white/60 group-hover:text-white text-sm font-bold transition-colors">Google Play</p></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-white/25 text-xs uppercase tracking-widest" style="font-family:'JetBrains Mono',monospace">© 2026 Olympus. Todos los derechos reservados.</p>
+      <div class="flex gap-6 flex-wrap justify-center">
+        <a href="#" rel="nofollow" class="text-white/25 text-xs hover:text-white/60 transition-colors duration-200 uppercase tracking-widest" style="font-family:'JetBrains Mono',monospace">Privacidad</a>
+        <a href="#" rel="nofollow" class="text-white/25 text-xs hover:text-white/60 transition-colors duration-200 uppercase tracking-widest" style="font-family:'JetBrains Mono',monospace">Términos</a>
+        <a href="#" id="footer-cookie-settings" class="text-white/25 text-xs hover:text-white/60 transition-colors duration-200 uppercase tracking-widest" style="font-family:'JetBrains Mono',monospace">Preferencias de Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS — mismo orden que el original -->
+<script src="js/loader.js"></script>
+<script src="js/scroll.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/screenshots.js"></script>
+<script src="js/testimonials.js"></script>
+<script src="js/main.js"></script>
+
+<!-- ════════════════════════════════════════════════════════════
+  OLYMPUS — COOKIE CONSENT (autocontenido)
+  Va inline para que NUNCA dependa de que js/cookies.js resuelva
+  bien la ruta en el hosting. Corrige además:
+    · La caducidad de 365 días nunca se comprobaba (bug real).
+    · No había manejo de errores si localStorage está bloqueado
+      (modo incógnito, navegadores restrictivos, etc).
+    · Los checkboxes de Analíticas/Marketing venían "checked"
+      por defecto → viola "privacidad por defecto" (GDPR/LOPD).
+    · No existía forma de reabrir preferencias tras la 1a visita.
+    · Faltaba manejo de teclado (Escape) y foco en el modal.
+═══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  var CONSENT_KEY = 'olympus_cookie_consent';
+  var CONSENT_VERSION = 1;      // súbelo si cambias las categorías de cookies
+  var CONSENT_DAYS = 365;
+
+  var banner = document.getElementById('cookie-banner');
+  var modal  = document.getElementById('cookie-config-modal');
+  var chkAnalytics = document.getElementById('cookie-analytics');
+  var chkMarketing = document.getElementById('cookie-marketing');
+  var lastFocusedEl = null;
+
+  // ── Storage helpers (nunca revientan si localStorage está bloqueado) ──
+  function storageGet(key) {
+    try { return window.localStorage.getItem(key); }
+    catch (e) { console.warn('Olympus cookies: localStorage no disponible', e); return null; }
+  }
+  function storageSet(key, value) {
+    try { window.localStorage.setItem(key, value); return true; }
+    catch (e) { console.warn('Olympus cookies: no se pudo guardar en localStorage', e); return false; }
+  }
+  function storageRemove(key) {
+    try { window.localStorage.removeItem(key); } catch (e) {}
+  }
+
+  function readConsent() {
+    var raw = storageGet(CONSENT_KEY);
+    if (!raw) return null;
+    try {
+      var data = JSON.parse(raw);
+      if (!data || typeof data !== 'object') return null;
+      if (data.version !== CONSENT_VERSION) return null;      // pedimos consentimiento otra vez si cambian las categorías
+      if (!data.expiresAt || Date.now() > data.expiresAt) return null; // BUG FIX: la caducidad ahora sí se respeta
+      return data;
+    } catch (e) {
+      return null; // JSON corrupto → tratamos como "sin consentimiento"
+    }
+  }
+
+  function writeConsent(analytics, marketing) {
+    var data = {
+      version: CONSENT_VERSION,
+      essential: true,
+      analytics: !!analytics,
+      marketing: !!marketing,
+      grantedAt: Date.now(),
+      expiresAt: Date.now() + CONSENT_DAYS * 24 * 60 * 60 * 1000
+    };
+    storageSet(CONSENT_KEY, JSON.stringify(data));
+    applyConsent(data);
+    return data;
+  }
+
+  function applyConsent(data) {
+    // Aquí es donde se activarían/desactivarían scripts de terceros reales
+    // (Google Analytics, Meta Pixel, etc). Por ahora solo dejamos el hook.
+    document.dispatchEvent(new CustomEvent('olympus:cookie-consent', { detail: data }));
+    if (data.analytics) { /* activar analítica */ } else { /* no cargar analítica */ }
+    if (data.marketing) { /* activar marketing */ } else { /* no cargar marketing */ }
+  }
+
+  // ── Banner ──
+  function showBanner() {
+    if (!banner) return;
+    banner.classList.add('show');
+  }
+  function hideBanner() {
+    if (!banner) return;
+    banner.classList.remove('show');
+  }
+
+  // ── Modal ──
+  function openModal() {
+    if (!modal) return;
+    lastFocusedEl = document.activeElement;
+    var current = readConsent();
+    if (chkAnalytics) chkAnalytics.checked = current ? !!current.analytics : false; // opt-in por defecto = false
+    if (chkMarketing) chkMarketing.checked = current ? !!current.marketing : false;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    document.addEventListener('keydown', onModalKeydown);
+    var closeBtn = modal.querySelector('.cookie-config-close');
+    if (closeBtn) closeBtn.focus();
+  }
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.removeEventListener('keydown', onModalKeydown);
+    if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
+  }
+  function onModalKeydown(e) {
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key === 'Tab') {
+      var focusables = modal.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+      if (!focusables.length) return;
+      var first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+
+  // ── API pública (usada por los botones onclick del HTML) ──
+  window.acceptAllCookies = function () {
+    writeConsent(true, true);
+    hideBanner();
+  };
+  window.rejectNonEssential = function () {
+    writeConsent(false, false);
+    hideBanner();
+  };
+  window.openCookieConfig = function () { openModal(); };
+  window.closeCookieConfig = function () { closeModal(); };
+  window.saveCookiePreferences = function () {
+    var analytics = chkAnalytics ? chkAnalytics.checked : false;
+    var marketing = chkMarketing ? chkMarketing.checked : false;
+    writeConsent(analytics, marketing);
+    closeModal();
+    hideBanner();
+  };
+  window.configureCookies = function () { openModal(); };
+  window.closeCookieBanner = function () { hideBanner(); };
+  // Para que puedan probarlo en consola sin borrar cookies del navegador a mano
+  window.clearOlympusCookieConsent = function () {
+    storageRemove(CONSENT_KEY);
+    location.reload();
+  };
+
+  // Cerrar el modal clicando el fondo oscuro
+  if (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  // Reabrir preferencias desde el footer en cualquier momento
+  var footerLink = document.getElementById('footer-cookie-settings');
+  if (footerLink) {
+    footerLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      openModal();
+    });
+  }
+
+  // ── Inicio ──
+  function init() {
+    var consent = readConsent();
+    if (consent) {
+      applyConsent(consent);
+      return; // ya hay consentimiento válido y vigente → no mostramos el banner
+    }
+    showBanner(); // sin consentimiento (nunca dado, corrupto o caducado) → mostrar SIEMPRE
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  // Red de seguridad: si algo (loader, animaciones) retrasa el pintado,
+  // confirmamos que el banner quede visible poco después de cargar todo.
+  window.addEventListener('load', function () {
+    if (!readConsent()) showBanner();
+  });
+})();
+</script>
+
+<!-- ════════════════════════════════════════════
+  CAROUSEL AUTO-SCROLL (mobile/tablet)
+  - Avanza cada 4s automáticamente
+  - Tap en dot salta a esa slide
+  - Touch swipe manual también funciona
+════════════════════════════════════════════════ -->
+<script>
+(function(){
+  var track = document.getElementById('carousel-track');
+  var dots  = document.querySelectorAll('.carousel-dot');
+  var prog  = document.getElementById('carousel-prog');
+  if(!track) return;
+
+  var slides = track.querySelectorAll('.carousel-slide');
+  var total  = slides.length;
+  var cur    = 0;
+  var timer  = null;
+  var INTERVAL = 4000;
+
+  function getSlideWidth(){
+    if(!slides[0]) return 0;
+    var style = window.getComputedStyle(track);
+    var gap = parseFloat(style.gap) || 20;
+    return slides[0].offsetWidth + gap;
+  }
+
+  function goTo(idx){
+    cur = (idx + total) % total;
+    track.style.transform = 'translateX(-' + (cur * getSlideWidth()) + 'px)';
+    dots.forEach(function(d,i){ d.classList.toggle('active', i === cur); });
+    // Restart progress bar animation
+    if(prog){
+      prog.style.animation = 'none';
+      prog.offsetHeight; // reflow
+      prog.style.animation = 'carouselProg ' + (INTERVAL/1000) + 's linear infinite';
+    }
+  }
+
+  function next(){ goTo(cur + 1); }
+
+  function startAuto(){
+    clearInterval(timer);
+    timer = setInterval(next, INTERVAL);
+  }
+
+  // Dots click
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){
+      goTo(parseInt(d.getAttribute('data-idx')));
+      startAuto();
+    });
+  });
+
+  // Touch swipe
+  var touchStartX = 0;
+  track.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', function(e){
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 40){ goTo(diff > 0 ? cur + 1 : cur - 1); startAuto(); }
+  }, {passive:true});
+
+  // Solo arrancar en mobile/tablet
+  function initIfMobile(){
+    if(window.innerWidth < 1024){
+      goTo(0);
+      startAuto();
+    } else {
+      clearInterval(timer);
+    }
+  }
+  initIfMobile();
+  window.addEventListener('resize', initIfMobile);
+})();
+</script>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Aviso de cookies" aria-live="polite">
+  <div class="cookie-content">
+    <p class="cookie-text">Usamos cookies para mejorar tu experiencia. Puedes configurar tus preferencias o aceptar todas.</p>
+    <div class="cookie-btns">
+      <button class="btn-config" onclick="openCookieConfig()">Configurar</button>
+      <button class="btn-reject" onclick="rejectNonEssential()">Rechazar no esenciales</button>
+      <button class="btn-accept" onclick="acceptAllCookies()">Aceptar todo</button>
+    </div>
+  </div>
+</div>
+
+<!-- COOKIE CONFIG MODAL -->
+<div id="cookie-config-modal" class="cookie-config-modal" role="dialog" aria-label="Configuración de cookies" aria-hidden="true">
+  <div class="cookie-config-content">
+    <div class="cookie-config-header">
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.02em" class="text-white uppercase">Configurar Cookies</h3>
+      <button class="cookie-config-close" onclick="closeCookieConfig()" aria-label="Cerrar">
+        <i class="ri-close-line text-2xl"></i>
+      </button>
+    </div>
+    
+    <div class="cookie-config-body">
+      <!-- Cookies Esenciales -->
+      <div class="cookie-option">
+        <div class="cookie-option-header">
+          <div class="cookie-option-info">
+            <h4 class="text-white font-black text-sm uppercase tracking-wide mb-1">Cookies Esenciales</h4>
+            <p class="text-white/50 text-xs">Necesarias para el funcionamiento básico del sitio</p>
+          </div>
+          <div class="cookie-toggle disabled">
+            <span class="toggle-label">Siempre activas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cookies Analíticas -->
+      <div class="cookie-option">
+        <div class="cookie-option-header">
+          <div class="cookie-option-info">
+            <h4 class="text-white font-black text-sm uppercase tracking-wide mb-1">Cookies Analíticas</h4>
+            <p class="text-white/50 text-xs">Nos ayudan a mejorar el sitio analizando el uso</p>
+          </div>
+          <label class="cookie-toggle">
+            <input type="checkbox" id="cookie-analytics">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Cookies Marketing -->
+      <div class="cookie-option">
+        <div class="cookie-option-header">
+          <div class="cookie-option-info">
+            <h4 class="text-white font-black text-sm uppercase tracking-wide mb-1">Cookies Marketing</h4>
+            <p class="text-white/50 text-xs">Se usan para personalizar anuncios y contenido</p>
+          </div>
+          <label class="cookie-toggle">
+            <input type="checkbox" id="cookie-marketing">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="cookie-config-footer">
+      <button class="btn-save" onclick="saveCookiePreferences()">Guardar preferencias</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
