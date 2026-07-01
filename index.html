@@ -28,8 +28,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config={theme:{extend:{colors:{cyan:'#40FFF9'}}}};</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
-<link rel="stylesheet" href="css/loader.css" />
-<link rel="stylesheet" href="css/custom.css" />
+<link rel="stylesheet" href="loader.css" />
+<link rel="stylesheet" href="custom.css" />
 
 <style>
 body{font-family:'Inter',system-ui,sans-serif;}
@@ -38,11 +38,29 @@ body{font-family:'Inter',system-ui,sans-serif;}
 #hero-img{transform:none;transition:none;}
 #hero-img.loaded{transform:none;}
 
-/* ── Hero mobile fix ── */
+/* ── Hero mobile fix: foto como card responsiva ── */
 @media(max-width:639px){
+  #hero{
+    min-height:auto;
+    display:block;
+    padding-top:16px;
+  }
+  #hero .hero-photo-wrap{
+    position:relative;
+    inset:auto;
+    width:calc(100% - 32px);
+    height:48vh;
+    margin:0 16px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 16px 40px rgba(0,0,0,0.45);
+  }
   #hero-img{object-position:center 20% !important;}
-  .hero-gradient-side{display:none;}
-  .hero-gradient-mobile-bottom{display:block !important;}
+  #hero .hero-gradient{display:none !important;}
+  #hero .relative.z-10{
+    min-height:auto;
+    padding-top:32px !important;
+  }
 }
 
 /* ── LIQUID GLASS NAVBAR ─────────────────────────────────────
@@ -524,17 +542,17 @@ body{font-family:'Inter',system-ui,sans-serif;}
   HERO — sin hero-accent-line (era la línea azul)
 ════════════════════════════════════════════════ -->
 <section id="hero" class="relative min-h-screen w-full overflow-hidden bg-[#1A1A1A] flex flex-col">
-  <div class="absolute inset-0 w-full h-full overflow-hidden">
+  <div class="hero-photo-wrap absolute inset-0 w-full h-full overflow-hidden">
     <img id="hero-img"
       class="hero-parallax w-full h-full object-cover object-top"
-      src="images/yooo.jpg"
+      src="yooo.jpg"
       alt="Gimnasio de alto rendimiento — Olympus" />
     <!-- FIX: Gradiente lateral reducido — no oscurece la foto -->
-    <div class="hero-gradient-side absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/60 via-[#1A1A1A]/25 to-transparent"></div>
+    <div class="hero-gradient-side hero-gradient absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/60 via-[#1A1A1A]/25 to-transparent"></div>
     <!-- FIX mobile: gradiente desde abajo -->
-    <div class="hero-gradient-mobile-bottom absolute inset-0" style="display:none;background:linear-gradient(to top,#1A1A1A 0%,rgba(26,26,26,0.75) 45%,rgba(26,26,26,0.1) 100%);"></div>
+    <div class="hero-gradient-mobile-bottom hero-gradient absolute inset-0" style="display:none;background:linear-gradient(to top,#1A1A1A 0%,rgba(26,26,26,0.75) 45%,rgba(26,26,26,0.1) 100%);"></div>
     <!-- Gradiente inferior sutil -->
-    <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/60 via-transparent to-[#1A1A1A]/10"></div>
+    <div class="hero-gradient absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/60 via-transparent to-[#1A1A1A]/10"></div>
   </div>
 
   <!-- Contenido hero -->
@@ -542,10 +560,11 @@ body{font-family:'Inter',system-ui,sans-serif;}
     <style>
     @media(max-width:639px){
       #hero .relative.z-10{
-        padding-top: 120px;
+        padding-top: 32px;
         padding-bottom: 80px;
         padding-left: 24px;
         padding-right: 24px;
+        min-height: auto;
       }
       #hero h1{
         font-size: 2.5rem !important;
@@ -1019,12 +1038,12 @@ body{font-family:'Inter',system-ui,sans-serif;}
 </footer>
 
 <!-- SCRIPTS — mismo orden que el original -->
-<script src="js/loader.js"></script>
-<script src="js/scroll.js"></script>
-<script src="js/nav.js"></script>
-<script src="js/screenshots.js"></script>
-<script src="js/testimonials.js"></script>
-<script src="js/main.js"></script>
+<script src="loader.js"></script>
+<script src="scroll.js"></script>
+<script src="nav.js"></script>
+<script src="screenshots.js"></script>
+<script src="testimonials.js"></script>
+<script src="main.js"></script>
 
 <!-- ════════════════════════════════════════════════════════════
   OLYMPUS — COOKIE CONSENT (autocontenido)
