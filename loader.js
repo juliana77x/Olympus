@@ -9,7 +9,7 @@ function initLoader(onDone) {
   var pct     = document.getElementById('loader-pct');
   var letters = document.querySelectorAll('.loader-logo span');
 
-  if (!loader) { if (onDone) onDone(); return; }
+  if (!loader) { document.dispatchEvent(new CustomEvent('olympus:loader-done')); if (onDone) onDone(); return; }
 
   document.body.classList.add('is-loading');
 
@@ -61,7 +61,10 @@ function step(ts) {
       setTimeout(function() {
         loader.remove(); // Eliminamos el loader del DOM
         document.body.classList.remove('is-loading'); // Reactivamos el scroll o estilos del body
-        
+
+        // Avisamos al resto de la página (ej: banner de cookies) que el loader ya terminó
+        document.dispatchEvent(new CustomEvent('olympus:loader-done'));
+
         // 4. Si existe una función callback 'onDone', la ejecutamos
         if (typeof onDone === 'function') onDone();
       }, 850);

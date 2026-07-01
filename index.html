@@ -1203,6 +1203,17 @@ body{font-family:'Inter',system-ui,sans-serif;}
     });
   }
 
+  // Muestra el banner, pero solo cuando el precargador ya terminó
+  // (si no, espera al evento que dispara loader.js al terminar)
+  function revealBannerWhenReady() {
+    var loaderStillRunning = document.body.classList.contains('is-loading') || document.getElementById('loader');
+    if (loaderStillRunning) {
+      document.addEventListener('olympus:loader-done', showBanner, { once: true });
+    } else {
+      showBanner();
+    }
+  }
+
   // ── Inicio ──
   function init() {
     var consent = readConsent();
@@ -1210,7 +1221,7 @@ body{font-family:'Inter',system-ui,sans-serif;}
       applyConsent(consent);
       return; // ya hay consentimiento válido y vigente → no mostramos el banner
     }
-    showBanner(); // sin consentimiento (nunca dado, corrupto o caducado) → mostrar SIEMPRE
+    revealBannerWhenReady(); // sin consentimiento (nunca dado, corrupto o caducado) → mostrar SIEMPRE
   }
 
   if (document.readyState === 'loading') {
@@ -1221,7 +1232,7 @@ body{font-family:'Inter',system-ui,sans-serif;}
   // Red de seguridad: si algo (loader, animaciones) retrasa el pintado,
   // confirmamos que el banner quede visible poco después de cargar todo.
   window.addEventListener('load', function () {
-    if (!readConsent()) showBanner();
+    if (!readConsent()) revealBannerWhenReady();
   });
 })();
 </script>
