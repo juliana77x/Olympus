@@ -1,11 +1,11 @@
 /* ============================================================
-   OLYMPUS — cookies.js (Versión Optimizada para Producción)
+   OLYMPUS — cookies.js (Versión Final Certificada)
    ============================================================ */
 
    (function () {
     'use strict';
   
-    // Claves individuales para evitar parseos complejos de JSON en cookies
+    // 1. Claves de las Cookies Reales
     var COOKIE_CONSENT_DONE = 'olympus_consent_given';
     var COOKIE_ANALYTICS = 'olympus_analytics_allowed';
     var COOKIE_MARKETING = 'olympus_marketing_allowed';
@@ -13,7 +13,7 @@
     var CONSENT_DAYS = 365;
     var banner, modal, chkAnalytics, chkMarketing, lastFocusedEl;
   
-    // --- 1. LECTURA Y ESCRITURA NATIVA EN COOKIES ---
+    // 2. Helpers para Cookies (API Nativa)
     function getCookie(name) {
       try {
         var nameEQ = name + "=";
@@ -32,7 +32,6 @@
     function setCookie(name, value) {
       try {
         var maxAge = CONSENT_DAYS * 24 * 60 * 60;
-        // path=/ para toda la app; Secure requerido para HTTPS (Vercel); SameSite=Lax por seguridad
         document.cookie = name + "=" + encodeURIComponent(value) + "; path=/; max-age=" + maxAge + "; SameSite=Lax; Secure";
         return true;
       } catch (e) {
@@ -45,9 +44,8 @@
       document.cookie = name + "=; path=/; max-age=0; SameSite=Lax; Secure";
     }
   
-    // --- 2. CONTROL DE CONSENTIMIENTO ---
+    // 3. Lógica de Consentimiento
     function readConsent() {
-      // Si esta cookie existe, significa que el usuario ya tomó una decisión
       var consentDone = getCookie(COOKIE_CONSENT_DONE);
       if (!consentDone) return null;
   
@@ -58,20 +56,16 @@
     }
   
     function writeConsent(analytics, marketing) {
-      // Seteamos las cookies correspondientes de forma individual
       setCookie(COOKIE_CONSENT_DONE, 'true');
       setCookie(COOKIE_ANALYTICS, analytics ? 'true' : 'false');
       setCookie(COOKIE_MARKETING, marketing ? 'true' : 'false');
   
       var data = { analytics: !!analytics, marketing: !!marketing };
-      
-      // Despachar el evento para integraciones de terceros (Google Analytics, Pixels, etc.)
       document.dispatchEvent(new CustomEvent('olympus:cookie-consent', { detail: data }));
-      
       return data;
     }
   
-    // --- 3. INTERFAZ DE USUARIO (UI) ---
+    // 4. Gestión de la Interfaz de Usuario (UI)
     function showBanner() { if (banner) banner.classList.add('show'); }
     function hideBanner() { if (banner) banner.classList.remove('show'); }
   
@@ -107,7 +101,7 @@
       }
     }
   
-    // --- INTERFAZ GLOBAL ---
+    // 5. Funciones Globales para los botones del HTML
     window.acceptAllCookies = function () { writeConsent(true, true); hideBanner(); };
     window.rejectNonEssential = function () { writeConsent(false, false); hideBanner(); };
     window.openCookieConfig = function () { openModal(); };
@@ -122,17 +116,18 @@
     window.configureCookies = function () { openModal(); };
     window.closeCookieBanner = function () { hideBanner(); };
     
+    // Limpieza absoluta para pruebas en consola
     window.clearOlympusCookieConsent = function () {
       removeCookie(COOKIE_CONSENT_DONE);
       removeCookie(COOKIE_ANALYTICS);
       removeCookie(COOKIE_MARKETING);
-      // Aseguramos remoción total del LocalStorage obsoleto de versiones pasadas
-      localStorage.removeItem('olympus_cookie_consent');
+      localStorage.removeItem('olympus_cookie_consent'); // Borra el residuo viejo
       location.reload();
     };
   
+    // 6. Inicialización
     function init() {
-      // CRUCIAL: Limpiamos rastros viejos de LocalStorage para evitar falsos positivos en consola
+      // ESTA LÍNEA BORRA EL LOCALSTORAGE VIEJO QUE SE VE EN TU CAPTURA APENAS CARGA LA PÁGINA
       localStorage.removeItem('olympus_cookie_consent');
   
       banner = document.getElementById('cookie-banner');
