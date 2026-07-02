@@ -1,92 +1,77 @@
 /* ============================================================
-   OLYMPUS — cookies.js (corregido)
-   Gestión de consentimiento de cookies, con:
-     · Comprobación real de caducidad (365 días) — antes nunca
-       se validaba y el aviso jamás volvía a aparecer.
-     · Manejo de errores en localStorage (modo incógnito /
-       navegadores que lo bloquean no rompen el script).
-     · Opt-in por defecto para Analíticas/Marketing (privacidad
-       por defecto — requisito habitual en auditorías GDPR/LOPD).
-     · Reapertura de preferencias en cualquier momento.
-     · Manejo de teclado (Escape, foco) en el modal.
-
-   NOTA: si usas este archivo externo, asegúrate de que la ruta
-   "js/cookies.js" resuelve correctamente en tu hosting (revisa
-   la pestaña Network del navegador: no debe dar 404). Si tienes
-   dudas, usa la versión inline incluida directamente en el
-   <body> del index.html, que no depende de ninguna ruta externa.
+   OLYMPUS — cookies.js (Versión Optimizada para Producción)
    ============================================================ */
 
    (function () {
     'use strict';
   
-    var CONSENT_KEY = 'olympus_cookie_consent';
-    var CONSENT_VERSION = 1;
+    // Claves individuales para evitar parseos complejos de JSON en cookies
+    var COOKIE_CONSENT_DONE = 'olympus_consent_given';
+    var COOKIE_ANALYTICS = 'olympus_analytics_allowed';
+    var COOKIE_MARKETING = 'olympus_marketing_allowed';
+    
     var CONSENT_DAYS = 365;
-  
     var banner, modal, chkAnalytics, chkMarketing, lastFocusedEl;
   
-    function setCookieRaw(name, value, days) {
+    // --- 1. LECTURA Y ESCRITURA NATIVA EN COOKIES ---
+    function getCookie(name) {
       try {
-        var expires = '';
-        if (days) {
-          var date = new Date();
-          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-          expires = '; expires=' + date.toUTCString();
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i].trim();
+          if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
         }
-        var secure = (location.protocol === 'https:') ? '; Secure' : '';
-        document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/; SameSite=Lax' + secure;
+        return null;
+      } catch (e) {
+        console.warn('Olympus cookies: Error al leer cookie', e);
+        return null;
+      }
+    }
+  
+    function setCookie(name, value) {
+      try {
+        var maxAge = CONSENT_DAYS * 24 * 60 * 60;
+        // path=/ para toda la app; Secure requerido para HTTPS (Vercel); SameSite=Lax por seguridad
+        document.cookie = name + "=" + encodeURIComponent(value) + "; path=/; max-age=" + maxAge + "; SameSite=Lax; Secure";
         return true;
       } catch (e) {
-        console.warn('Olympus cookies: no se pudo guardar la cookie', e);
+        console.warn('Olympus cookies: Error al escribir cookie', e);
         return false;
       }
     }
-    function getCookieRaw(name) {
-      try {
-        var match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'));
-        return match ? decodeURIComponent(match[1]) : null;
-      } catch (e) {
-        return null;
-      }
-    }
-    function deleteCookieRaw(name) {
-      try { document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax'; }
-      catch (e) {}
+  
+    function removeCookie(name) {
+      document.cookie = name + "=; path=/; max-age=0; SameSite=Lax; Secure";
     }
   
+    // --- 2. CONTROL DE CONSENTIMIENTO ---
     function readConsent() {
-      var raw = getCookieRaw(CONSENT_KEY);
-      if (!raw) return null;
-      try {
-        var data = JSON.parse(raw);
-        if (!data || typeof data !== 'object') return null;
-        if (data.version !== CONSENT_VERSION) return null;
-        return data; // la caducidad ya la controla el navegador (expires de la cookie)
-      } catch (e) {
-        return null;
-      }
+      // Si esta cookie existe, significa que el usuario ya tomó una decisión
+      var consentDone = getCookie(COOKIE_CONSENT_DONE);
+      if (!consentDone) return null;
+  
+      return {
+        analytics: getCookie(COOKIE_ANALYTICS) === 'true',
+        marketing: getCookie(COOKIE_MARKETING) === 'true'
+      };
     }
   
     function writeConsent(analytics, marketing) {
-      var data = {
-        version: CONSENT_VERSION,
-        essential: true,
-        analytics: !!analytics,
-        marketing: !!marketing,
-        grantedAt: Date.now()
-      };
-      setCookieRaw(CONSENT_KEY, JSON.stringify(data), CONSENT_DAYS);
-      applyConsent(data);
+      // Seteamos las cookies correspondientes de forma individual
+      setCookie(COOKIE_CONSENT_DONE, 'true');
+      setCookie(COOKIE_ANALYTICS, analytics ? 'true' : 'false');
+      setCookie(COOKIE_MARKETING, marketing ? 'true' : 'false');
+  
+      var data = { analytics: !!analytics, marketing: !!marketing };
+      
+      // Despachar el evento para integraciones de terceros (Google Analytics, Pixels, etc.)
+      document.dispatchEvent(new CustomEvent('olympus:cookie-consent', { detail: data }));
+      
       return data;
     }
   
-    function applyConsent(data) {
-      document.dispatchEvent(new CustomEvent('olympus:cookie-consent', { detail: data }));
-      if (data.analytics) { /* activar analítica real aquí */ }
-      if (data.marketing) { /* activar marketing real aquí */ }
-    }
-  
+    // --- 3. INTERFAZ DE USUARIO (UI) ---
     function showBanner() { if (banner) banner.classList.add('show'); }
     function hideBanner() { if (banner) banner.classList.remove('show'); }
   
@@ -94,14 +79,15 @@
       if (!modal) return;
       lastFocusedEl = document.activeElement;
       var current = readConsent();
-      if (chkAnalytics) chkAnalytics.checked = current ? !!current.analytics : false;
-      if (chkMarketing) chkMarketing.checked = current ? !!current.marketing : false;
+      if (chkAnalytics) chkAnalytics.checked = current ? current.analytics : false;
+      if (chkMarketing) chkMarketing.checked = current ? current.marketing : false;
       modal.classList.add('show');
       modal.setAttribute('aria-hidden', 'false');
       document.addEventListener('keydown', onModalKeydown);
       var closeBtn = modal.querySelector('.cookie-config-close');
       if (closeBtn) closeBtn.focus();
     }
+    
     function closeModal() {
       if (!modal) return;
       modal.classList.remove('show');
@@ -109,6 +95,7 @@
       document.removeEventListener('keydown', onModalKeydown);
       if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
     }
+    
     function onModalKeydown(e) {
       if (e.key === 'Escape') { closeModal(); return; }
       if (e.key === 'Tab') {
@@ -120,6 +107,7 @@
       }
     }
   
+    // --- INTERFAZ GLOBAL ---
     window.acceptAllCookies = function () { writeConsent(true, true); hideBanner(); };
     window.rejectNonEssential = function () { writeConsent(false, false); hideBanner(); };
     window.openCookieConfig = function () { openModal(); };
@@ -133,12 +121,20 @@
     };
     window.configureCookies = function () { openModal(); };
     window.closeCookieBanner = function () { hideBanner(); };
+    
     window.clearOlympusCookieConsent = function () {
-      deleteCookieRaw(CONSENT_KEY);
+      removeCookie(COOKIE_CONSENT_DONE);
+      removeCookie(COOKIE_ANALYTICS);
+      removeCookie(COOKIE_MARKETING);
+      // Aseguramos remoción total del LocalStorage obsoleto de versiones pasadas
+      localStorage.removeItem('olympus_cookie_consent');
       location.reload();
     };
   
     function init() {
+      // CRUCIAL: Limpiamos rastros viejos de LocalStorage para evitar falsos positivos en consola
+      localStorage.removeItem('olympus_cookie_consent');
+  
       banner = document.getElementById('cookie-banner');
       modal = document.getElementById('cookie-config-modal');
       chkAnalytics = document.getElementById('cookie-analytics');
@@ -159,7 +155,7 @@
   
       var consent = readConsent();
       if (consent) {
-        applyConsent(consent);
+        document.dispatchEvent(new CustomEvent('olympus:cookie-consent', { detail: consent }));
         return;
       }
       showBanner();
@@ -170,7 +166,4 @@
     } else {
       init();
     }
-    window.addEventListener('load', function () {
-      if (!readConsent()) showBanner();
-    });
   })();
