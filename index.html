@@ -40,6 +40,7 @@ body{font-family:'Inter',system-ui,sans-serif;}
 
 /* ── Hero mobile fix ── */
 @media(max-width:639px){
+  #hero{min-height:72vh;}
   #hero-img{object-position:center 20% !important;}
   .hero-gradient-side{display:none;}
   .hero-gradient-mobile-bottom{display:block !important;}
@@ -542,6 +543,7 @@ body{font-family:'Inter',system-ui,sans-serif;}
     <style>
     @media(max-width:639px){
       #hero .relative.z-10{
+        min-height: 72vh;
         padding-top: 120px;
         padding-bottom: 80px;
         padding-left: 24px;
@@ -1046,10 +1048,7 @@ body{font-family:'Inter',system-ui,sans-serif;}
   var CONSENT_VERSION = 1;      // súbelo si cambias las categorías de cookies
   var CONSENT_DAYS = 365;
 
-  var banner = document.getElementById('cookie-banner');
-  var modal  = document.getElementById('cookie-config-modal');
-  var chkAnalytics = document.getElementById('cookie-analytics');
-  var chkMarketing = document.getElementById('cookie-marketing');
+  var banner, modal, chkAnalytics, chkMarketing;
   var lastFocusedEl = null;
 
   // ── Storage helpers (nunca revientan si localStorage está bloqueado) ──
@@ -1168,20 +1167,28 @@ body{font-family:'Inter',system-ui,sans-serif;}
     location.reload();
   };
 
-  // Cerrar el modal clicando el fondo oscuro
-  if (modal) {
-    modal.addEventListener('click', function (e) {
-      if (e.target === modal) closeModal();
-    });
-  }
+  // ── Enlazar con el DOM (solo se llama cuando el documento ya está completo) ──
+  function bindDom() {
+    banner = document.getElementById('cookie-banner');
+    modal  = document.getElementById('cookie-config-modal');
+    chkAnalytics = document.getElementById('cookie-analytics');
+    chkMarketing = document.getElementById('cookie-marketing');
 
-  // Reabrir preferencias desde el footer en cualquier momento
-  var footerLink = document.getElementById('footer-cookie-settings');
-  if (footerLink) {
-    footerLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      openModal();
-    });
+    // Cerrar el modal clicando el fondo oscuro
+    if (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    // Reabrir preferencias desde el footer en cualquier momento
+    var footerLink = document.getElementById('footer-cookie-settings');
+    if (footerLink) {
+      footerLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal();
+      });
+    }
   }
 
   // Muestra el banner, pero solo cuando el precargador ya terminó
@@ -1197,6 +1204,7 @@ body{font-family:'Inter',system-ui,sans-serif;}
 
   // ── Inicio ──
   function init() {
+    bindDom();
     var consent = readConsent();
     if (consent) {
       applyConsent(consent);
